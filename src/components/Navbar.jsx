@@ -1,5 +1,21 @@
 import { React } from "react";
 import logo from "../assets/logo.png";
+import { motion } from "framer-motion";
+
+const slideRight = (delay) => ({
+  hidden: {
+    opacity: 0,
+    x: -100,
+  },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.5,
+      delay: delay,
+    },
+  },
+});
 
 const NavbarMenu = [
   {
@@ -39,37 +55,52 @@ const Navbar = () => {
     <nav className=" bg-primary text-white">
       <div className="container py-6 flex justify-between items-center">
         {/* logo section */}
-        <div>
+        <motion.div variants={slideRight(0.1)} initial="hidden" animate="show">
           <img src={logo} alt="" className="w-[100px]" />
-        </div>
+        </motion.div>
         {/* menu section */}
         <div className="hidden md:block">
           <ul className="flex items-center gap-4">
             {NavbarMenu.map((item) => {
               return (
-                <li key={item.id}>
+                <motion.li
+                  variants={slideRight(item.delay)}
+                  initial="hidden"
+                  animate="show"
+                  key={item.id}
+                >
                   <a
                     href={item.link}
                     className="py-2 px-4 inline-block uppercase font-barlow font-semibold hover:scale-105 duration:300"
                   >
                     {item.title}
                   </a>
-                </li>
+                </motion.li>
               );
             })}
           </ul>
         </div>
         {/* icons section  */}
         <div className="flex items-center gap-4">
-          <div className="text-2xl cursor-pointer">
+          <motion.div
+            variants={slideRight(1.2)}
+            initial="hidden"
+            animate="show"
+            className="text-2xl cursor-pointer"
+          >
             <i class="bx bx-user-circle"></i>
-          </div>
-          <div className="text-2xl cursor-pointer relative">
+          </motion.div>
+          <motion.div
+            variants={slideRight(1.4)}
+            initial="hidden"
+            animate="show"
+            className="text-2xl cursor-pointer relative"
+          >
             <i className="bx bx-shopping-bag"></i>
             <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-sm rounded-full flex items-center justify-center text-white">
               2
             </div>
-          </div>
+          </motion.div>
         </div>
         {/* mobile hamburgerr section  */}
         <div className="md:hidden"></div>
